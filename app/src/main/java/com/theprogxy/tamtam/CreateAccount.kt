@@ -41,7 +41,7 @@ class CreateAccount : Activity() {
     }
 
     private fun isValidData(username: String, password: String, confirm: String) : Boolean {
-        return !(username == "" || password == "" || confirm == "") && (password != confirm)
+        return !(username == "" || password == "" || confirm == "") && (password == confirm)
     }
 
 }
