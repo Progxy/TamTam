@@ -18,13 +18,13 @@
 
     <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_margin="16dp"
         android:background="@drawable/circular_background"
-        android:src="@drawable/ic_back_arrow"
+        android:src="@drawable/ic_logout"
         android:contentDescription="@string/back"
         android:elevation="4dp"/>
 
