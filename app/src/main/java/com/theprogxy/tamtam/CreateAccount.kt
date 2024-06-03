@@ -28,12 +28,11 @@ class CreateAccount : Activity() {
             if (isValidData(accountEmail.text.toString(), createUsername.text.toString(), createPassword.text.toString(), confirmPassword.text.toString())) {
                 Toast.makeText(this, "Account successfully created", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ConfirmEmail::class.java)
-                startActivity(intent)
                 intent.putExtra("email", accountEmail.text.toString())
+                startActivity(intent)
                 finish()
             } else {
                 Toast.makeText(this, "Invalid Data", Toast.LENGTH_SHORT).show()
-
             }
 
             accountEmail.text.clear()

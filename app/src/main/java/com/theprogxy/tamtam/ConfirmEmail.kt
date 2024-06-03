@@ -14,7 +14,6 @@ class ConfirmEmail : Activity() {
         setContentView(R.layout.activity_confirm_email)
 
         val email = intent.getStringExtra("email")
-
         confirmText = findViewById(R.id.confirmText)
         val confirmationText = "Confirm the account by visiting the link sent to $email"
         confirmText.text = confirmationText
