@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.osmdroid.wms)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.coordinatorlayout)
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation(libs.firebase.bom)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
