@@ -8,4 +8,6 @@
     <string name="login">Login</string>
     <string name="back">Back</string>
     <string name="data">Lorem Ipsum</string>
+    <string name="next">Next</string>
+    <string name="email">Email</string>
 </resources>
