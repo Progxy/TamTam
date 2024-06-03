@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_gravity="center_vertical"
     android:padding="16dp">
 
     <EditText
         android:id="@+id/usernameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="16dp"
         android:height="48dp"
+        android:layout_gravity="center_horizontal"
         android:autofillHints=""
         android:hint="@string/username"
         android:inputType="text"
@@ -18,18 +20,20 @@
 
     <EditText
         android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"
         android:autofillHints=""
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:padding="10dp"
-        android:layout_marginBottom="16dp"/>
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="58dp"
+        android:layout_gravity="center_horizontal"
         android:padding="10dp"
         android:text="@string/login" />
 </LinearLayout>
