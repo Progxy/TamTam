@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "552423024336",
+    "firebase_url": "https://tamtam-7024e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tamtam-7024e",
+    "storage_bucket": "tamtam-7024e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552423024336:android:4729d45e2ee6f93a5de0d5",
+        "android_client_info": {
+          "package_name": "com.theprogxy.tamtam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEb7EJ1qCDVEJEyk2WmITILjL5vNhz1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

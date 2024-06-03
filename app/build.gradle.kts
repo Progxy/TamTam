@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,6 +45,7 @@ dependencies {
     implementation(libs.osmdroid.wms)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.coordinatorlayout)
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
