@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TamTam</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="back">Back</string>
+    <string name="data">Lorem Ipsum</string>
+</resources>
