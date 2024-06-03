@@ -12,17 +12,16 @@ class LoginActivity : Activity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
+    private lateinit var createAccountBt: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize views
         usernameEditText = findViewById(R.id.usernameEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
 
-        // Set onClick listener for the login button
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -40,6 +39,14 @@ class LoginActivity : Activity() {
 
             usernameEditText.text.clear()
             passwordEditText.text.clear()
+        }
+
+        createAccountBt = findViewById(R.id.createAccountButton)
+
+        createAccountBt.setOnClickListener {
+            val intent = Intent(this, CreateAccount::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
