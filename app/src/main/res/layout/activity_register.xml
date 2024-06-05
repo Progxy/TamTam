@@ -7,30 +7,19 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/idEditText"
         android:layout_width="320dp"
         android:layout_height="54dp"
         android:layout_marginBottom="10dp"
         android:height="48dp"
         android:layout_gravity="center_horizontal"
         android:autofillHints=""
-        android:hint="@string/username"
+        android:hint="@string/id"
         android:inputType="text"
         android:padding="15dp" />
 
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="320dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center_horizontal"
-        android:autofillHints=""
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:padding="15dp" />
-
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:layout_width="320dp"
         android:layout_height="58dp"
         android:layout_gravity="center_horizontal"
@@ -41,20 +30,6 @@
         android:topLeftRadius="15dp"
         android:topRightRadius="15dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/login" />
-
-    <Button
-        android:id="@+id/createAccountButton"
-        android:layout_width="320dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/purple_500"
-        android:text="@string/createAccount"
-        android:bottomRightRadius="15dp"
-        android:bottomLeftRadius="15dp"
-        android:topLeftRadius="15dp"
-        android:textColor="@color/white"
-        android:topRightRadius="15dp"
-        android:layout_marginBottom="10dp"/>
+        android:text="@string/register" />
 
 </LinearLayout>

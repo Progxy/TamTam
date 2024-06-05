@@ -6,31 +6,26 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 
-class ConfirmEmail : Activity() {
+class Confirm : Activity() {
     private lateinit var confirmText: TextView
     private lateinit var nextButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_confirm_email)
+        setContentView(R.layout.activity_confirm)
 
-        val email = intent.getStringExtra("email")
+        val hashId = intent.getStringExtra("hashId")
         confirmText = findViewById(R.id.confirmText)
         val confirmationMessage = """
-            Account Created Successfully!
+            Victim record successfully stored in the database
+            Victim hashId: $hashId
             
-            A confirmation link has been sent to $email. Please check your email and click on the link to confirm your account.
-
-            If you do not see the email in your inbox, please check your spam or junk folder.
-            
-            Thank you for registering with us!
-            
-            The TamTam team.
+            The TamTam Team.
         """.trimIndent()
         confirmText.text = confirmationMessage
 
         nextButton = findViewById(R.id.nextButton)
         nextButton.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
