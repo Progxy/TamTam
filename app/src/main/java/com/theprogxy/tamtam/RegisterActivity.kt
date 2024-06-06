@@ -2,9 +2,13 @@ package com.theprogxy.tamtam
 
 import android.Manifest
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity.CENTER_HORIZONTAL
 import android.view.Gravity.CENTER_VERTICAL
 import android.view.ViewGroup
@@ -16,12 +20,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Data
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.Calendar
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 const val MY_PERMISSIONS_REQUEST_MULTIPLE = 4
@@ -30,28 +36,57 @@ class RegisterActivity : Activity() {
     private lateinit var idEditText: EditText
     private lateinit var registerButton: Button
     private lateinit var userPreferences: UserPreferences
+    private lateinit var victimId: String
+    private lateinit var workRequestId: UUID
+    private val emptyUUID: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
+
+    private val smsReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val sender = intent.getStringExtra("sender")
+            val body = intent.getStringExtra("body")
+            Log.i("Negro", "Message received from: $sender, containing:\n $body")
+            if (body == "START $victimId") startTracking()
+            else if ((body == "STOP $victimId") && (workRequestId != emptyUUID)) {
+                val workManager = WorkManager.getInstance(applicationContext)
+                workManager.cancelWorkById(workRequestId)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (!this.checkPermission()) {
             val text : String = """
-                Permission needed to get current location
+                Permission needed to get current location and read SMS
             """.trimIndent()
             this.createCenteredText(text)
-        }
-        else {
+        } else {
+            this.workRequestId = emptyUUID
             this.userPreferences = UserPreferences()
-            val victimId: String? = this.userPreferences.getValue("victimId", this)
-            if (victimId != null) this.startTracking(victimId)
+            this.victimId = this.userPreferences.getValue("victimId", this).toString()
+            if (victimId != "null") {
+                LocalBroadcastManager.getInstance(this).registerReceiver(smsReceiver, IntentFilter("SmsMessageIntent"))
+                val text = """
+                    Me... Nothing, just hanging around...
+                """.trimIndent()
+                this.createCenteredText(text)
+            }
             else this.showIdEdit()
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver)
+    }
+
     private fun checkPermission() : Boolean {
         val permissions = arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.READ_SMS
         )
 
         val permissionStatus = permissions.map {
@@ -123,11 +158,12 @@ class RegisterActivity : Activity() {
         return
     }
 
-    private fun startTracking(victimId: String) {
-        val data = Data.Builder().putString("victimId", victimId).build()
+    private fun startTracking() {
+        val data = Data.Builder().putString("victimId", this.victimId).build()
         // Note that it will be reset to 15 Minutes as it's the minimum repeat interval (hardcoded system value for battery saving)
         val workRequest = PeriodicWorkRequestBuilder<TrackerWorker>(1, TimeUnit.MINUTES).setInputData(data).build()
         WorkManager.getInstance(applicationContext).enqueue(workRequest)
+        this.workRequestId = workRequest.id
         val text = """
             Me... Nothing, just hanging around...
         """.trimIndent()
