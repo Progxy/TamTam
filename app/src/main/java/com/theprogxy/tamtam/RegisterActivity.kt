@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity.CENTER_HORIZONTAL
 import android.view.Gravity.CENTER_VERTICAL
 import android.view.ViewGroup
@@ -126,6 +125,7 @@ class RegisterActivity : Activity() {
 
     private fun startTracking(victimId: String) {
         val data = Data.Builder().putString("victimId", victimId).build()
+        // Note that it will be reset to 15 Minutes as it's the minimum repeat interval (hardcoded system value for battery saving)
         val workRequest = PeriodicWorkRequestBuilder<TrackerWorker>(1, TimeUnit.MINUTES).setInputData(data).build()
         WorkManager.getInstance(applicationContext).enqueue(workRequest)
         val text = """
