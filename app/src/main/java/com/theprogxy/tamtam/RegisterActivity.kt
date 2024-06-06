@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity.CENTER_HORIZONTAL
 import android.view.Gravity.CENTER_VERTICAL
 import android.view.ViewGroup
@@ -118,14 +119,14 @@ class RegisterActivity : Activity() {
         database.child(id).child("isTracked").setValue(false)
         val time = Calendar.getInstance().time.time
         database.child(id).child("lastUpdate").setValue(time)
-        database.child(id).child("latitude").setValue(Math.random() * 100_000)
-        database.child(id).child("longitude").setValue(Math.random() * 100_000)
+        database.child(id).child("latitude").setValue(Math.random() * 100)
+        database.child(id).child("longitude").setValue(Math.random() * 100)
         return
     }
 
     private fun startTracking(victimId: String) {
         val data = Data.Builder().putString("victimId", victimId).build()
-        val workRequest = PeriodicWorkRequestBuilder<TrackerWorker>(30, TimeUnit.SECONDS).setInputData(data).build()
+        val workRequest = PeriodicWorkRequestBuilder<TrackerWorker>(1, TimeUnit.MINUTES).setInputData(data).build()
         WorkManager.getInstance(applicationContext).enqueue(workRequest)
         val text = """
             Me... Nothing, just hanging around...
