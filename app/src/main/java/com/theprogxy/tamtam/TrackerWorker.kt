@@ -18,17 +18,15 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.CountDownLatch
 
-class TrackerWorker(private val context : Context, private val params : WorkerParameters): Worker(context,params) {
+class TrackerWorker(private val context : Context, private val params : WorkerParameters): Worker(context, params) {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
     override fun doWork() : Result {
-        val context = this.context
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.context)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return Result.failure()
         }
 
