@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.provider.Telephony
 import android.util.Log
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Data
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkInfo
@@ -22,7 +22,7 @@ class SmsReceiverWorker(private val context: Context, private val params: Worker
         override fun onReceive(context: Context, intent: Intent) {
             val sender = intent.getStringExtra("sender")
             val body = intent.getStringExtra("body")
-            Log.i("Negro", "Message received from: $sender, containing:\n $body")
+            Log.i("Negro", "Message received from: $sender, containing: $body")
 
             // Check if any of the work info objects are in ENQUEUED or RUNNING state
             val isWorking : Boolean = WorkManager.getInstance(context).getWorkInfosByTag("Tracking").get().any { workInfo ->
@@ -43,9 +43,9 @@ class SmsReceiverWorker(private val context: Context, private val params: Worker
 
     override fun doWork(): Result {
         latch = CountDownLatch(150)
-        LocalBroadcastManager.getInstance(this.context).registerReceiver(smsReceiver, IntentFilter("SmsMessageIntent"))
+        context.registerReceiver(smsReceiver, IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION))
         latch.await(14, TimeUnit.MINUTES)
-        LocalBroadcastManager.getInstance(this.context).unregisterReceiver(smsReceiver)
+        context.unregisterReceiver(smsReceiver)
         return Result.success()
     }
 }

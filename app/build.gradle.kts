@@ -54,4 +54,5 @@ dependencies {
     androidTestImplementation(libs.androidx.rules)
     androidTestImplementation(libs.mockito.android)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso.intents)
 }
