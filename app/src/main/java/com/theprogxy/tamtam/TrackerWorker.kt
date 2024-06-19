@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Looper
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -17,6 +18,7 @@ import com.google.android.gms.location.Priority
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 class TrackerWorker(private val context : Context, private val params : WorkerParameters): Worker(context, params) {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -45,7 +47,9 @@ class TrackerWorker(private val context : Context, private val params : WorkerPa
 
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
 
-        latch.await()
+
+        latch.await(14, TimeUnit.MINUTES)
+        Log.i("Negro", "Terminated")
 
         fusedLocationClient.removeLocationUpdates(locationCallback)
 
@@ -53,6 +57,7 @@ class TrackerWorker(private val context : Context, private val params : WorkerPa
     }
 
     private fun processLocation(location: Location) {
+        Log.i("Negro", "process location")
         val database = Firebase.database.reference
         val victimId = this.params.inputData.getString("victimId").toString()
         database.child(victimId).child("lastUpdate").setValue(location.time)
