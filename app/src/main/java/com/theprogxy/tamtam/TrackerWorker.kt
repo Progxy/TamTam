@@ -31,7 +31,7 @@ class TrackerWorker(private val context : Context, private val params : WorkerPa
             return Result.failure()
         }
 
-        val latch = CountDownLatch(1)
+        val latch = CountDownLatch(60)
 
         locationRequest = LocationRequest.Builder(Priority.PRIORITY_BALANCED_POWER_ACCURACY, 5000).build()
 
