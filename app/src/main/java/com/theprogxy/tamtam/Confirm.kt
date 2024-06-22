@@ -7,14 +7,12 @@ import android.widget.Button
 import android.widget.TextView
 
 class Confirm : Activity() {
-    private lateinit var confirmText: TextView
-    private lateinit var nextButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm)
 
         val hashId = intent.getStringExtra("hashId")
-        confirmText = findViewById(R.id.confirmText)
+        val confirmText: TextView = findViewById(R.id.confirmText)
         val confirmationMessage = """
             Victim record successfully stored in the database
             Victim hashId: $hashId
@@ -23,7 +21,7 @@ class Confirm : Activity() {
         """.trimIndent()
         confirmText.text = confirmationMessage
 
-        nextButton = findViewById(R.id.nextButton)
+        val nextButton: Button = findViewById(R.id.nextButton)
         nextButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)

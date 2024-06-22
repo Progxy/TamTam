@@ -27,8 +27,6 @@ import java.util.concurrent.TimeUnit
 const val MY_PERMISSIONS_REQUEST_MULTIPLE = 4
 
 class RegisterActivity : Activity() {
-    private lateinit var idEditText: EditText
-    private lateinit var registerButton: Button
     private lateinit var userPreferences: UserPreferences
     private lateinit var victimId: String
 
@@ -84,8 +82,8 @@ class RegisterActivity : Activity() {
     private fun showIdEdit() {
         setContentView(R.layout.activity_register)
 
-        idEditText = findViewById(R.id.idEditText)
-        registerButton = findViewById(R.id.registerButton)
+        val idEditText: EditText = findViewById(R.id.idEditText)
+        val registerButton: Button = findViewById(R.id.registerButton)
 
         registerButton.setOnClickListener {
             val victimCreatedId = idEditText.text.toString()
